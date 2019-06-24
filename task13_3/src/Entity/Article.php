@@ -10,11 +10,11 @@ class Article extends BaseEntity
         $this->title = $title;
         $this->text = $text;
     }
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
-    public function getText(): string
+    public function getText()
     {
         return $this->text;
     }

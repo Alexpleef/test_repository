@@ -3,11 +3,11 @@ namespace Entity;
 class BaseEntity
 {
     private $id;
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
-    public function setId($id): void
+    public function setId($id)
     {
         $this->id = $id;
     }

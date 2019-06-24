@@ -13,7 +13,7 @@ class DbManager
         $this->link->set_charset("utf8");
         $this->link->query("SET SQL_MODE = ''");
     }
-    public function query(string $sql):object
+    public function query(string $sql)
     {
         $query = $this->link->query($sql);
         if (!$this->link->errno) {
@@ -35,7 +35,7 @@ return $result;
     trigger_error('Error: ' . $this->link->error . '<br />Error No: ' . $this->link->errno . '<br />' . $sql);
 }
 }
-public function escape(string $value):string
+public function escape(string $value)
 {
     return $this->link->real_escape_string($value);
 }
