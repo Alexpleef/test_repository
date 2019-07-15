@@ -1,42 +1,42 @@
 <?php
-
-
+namespace Service;
 /**
  * Class DbManager
+ * @package Service
  */
 class DbManager
 {
     /**
-     * @var MySQLi
+     * @var \MySQLi
      */
-    protected $db;
-
+    private $link;
     /**
      * DbManager constructor.
      * @param string $hostname
      * @param string $username
      * @param string $password
      * @param string $database
-     * @throws Exception
+     * @param string $port
      */
-    public function __construct(string $hostname, string $username, string $password, string $database)
+    public function __construct(string $hostname, string $username, string $password, string $database, string $port = '3306')
     {
-        $this->db = new \MySQLi($hostname, $username, $password, $database);
-        if ($this->db->connect_error) {
-            throw new Exception($this->db->connect_error);
+        $this->link = new \MySQLi($hostname, $username, $password, $database, $port);
+        if ($this->link->connect_error) {
+            trigger_error('Error: Could not make a database link (' . $this->link->connect_errno . ') ' . $this->link->connect_error);
+            exit();
         }
-        $this->db->set_charset("utf8");
-        $this->db->query("SET SQL_MODE = ''");
+        $this->link->set_charset("utf8");
+        $this->link->query("SET SQL_MODE = ''");
     }
-
     /**
+     * Query making
      * @param string $sql
      * @return object|null
      */
-    public function query(string $sql): ?object
+    public function query(string $sql):?object
     {
-        $query = $this->db->query($sql);
-        if (!$this->db->errno) {
+        $query = $this->link->query($sql);
+        if (!$this->link->errno) {
             if ($query instanceof \mysqli_result) {
                 $data = array();
                 while ($row = $query->fetch_assoc()) {
@@ -52,17 +52,16 @@ class DbManager
                 return null;
             }
         } else {
-            trigger_error('Error: ' . $this->db->error . '<br />Error No: ' . $this->db->errno . '<br />' . $sql);
+            trigger_error('Error: ' . $this->link->error . '<br />Error No: ' . $this->link->errno . '<br />' . $sql);
         }
     }
-
     /**
      * Escape value
      * @param string $value
      * @return string
      */
-    public function escape(string $value): string
+    public function escape(string $value):string
     {
-        return $this->db->real_escape_string($value);
+        return $this->link->real_escape_string($value);
     }
 }
