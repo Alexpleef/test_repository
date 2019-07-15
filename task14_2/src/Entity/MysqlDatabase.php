@@ -14,8 +14,11 @@ class MysqlDatabase
      * @var \MySQLi
      */
     private $link;
+
     /**
      * MysqlDatabase constructor.
+     * @param MysqlConfig $config
+     * @throws \Exception
      */
     public function __construct(MysqlConfig $config)
     {
@@ -23,7 +26,7 @@ class MysqlDatabase
     }
     /**
      * Mysql connection
-     * @param \InterfaceNameSpace\DatabaseConfig $config
+     * @param \InterfaceNamespace\DatabaseConfig $config
      * @throws \Exception
      */
     private function connect(DatabaseConfig $config): void

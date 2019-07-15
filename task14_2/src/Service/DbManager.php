@@ -13,7 +13,11 @@ class DbManager
 
     /**
      * DbManager constructor.
-     * @param $db
+     * @param string $hostname
+     * @param string $username
+     * @param string $password
+     * @param string $database
+     * @throws Exception
      */
     public function __construct(string $hostname, string $username, string $password, string $database)
     {

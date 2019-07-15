@@ -1,8 +1,10 @@
 <?php
 namespace Service;
 use Entity\Article;
-use InterfaceNs\EntityManagerInterface;
+use InterfaceNamespace\EntityManager;
 use Entity\BaseEntity;
+use Entity\MysqlConfig;
+use Entity\MysqlDatabase;
 class ArticleManager extends EntityManager
 {
     /**
@@ -17,7 +19,7 @@ class ArticleManager extends EntityManager
             print_r($exception->getMessage());
         }
 
-        $this->db_table = 'articles';
+        $this->db_table = 'Article';
     }
     /**
      * Create Article object by id
@@ -31,10 +33,10 @@ class ArticleManager extends EntityManager
             foreach ($article_query->rows as $row) {
                 $data['title'] = $row['title'];
                 $data['text'] = $row['text'];
-                $data['user_id'] = $row['user_id'];
+                $data['userId'] = $row['userId'];
             }
             $user_manager = new UserManager($this->config);
-            $user_test = $user_manager->getById($data['user_id']);
+            $user_test = $user_manager->getById($data['userId']);
             $article = new Article($data['title'], $data['text'], $user_test);
             $article->setId($id);
             return $article;
@@ -65,7 +67,7 @@ class ArticleManager extends EntityManager
      */
     private function update(array $data): void
     {
-        $query = "UPDATE articles SET title = '" . $this->db->escape($data['title']) . "', text = '" . $this->db->escape($data['text']) . "' WHERE id='" . (int)$data['id'] . "'";
+        $query = "UPDATE Article SET title = '" . $this->db->escape($data['title']) . "', text = '" . $this->db->escape($data['text']) . "' WHERE id='" . (int)$data['id'] . "'";
         $this->db->query($query);
     }
     /**
@@ -75,7 +77,7 @@ class ArticleManager extends EntityManager
      */
     private function add(array $data): void
     {
-        $query = "INSERT INTO articles SET title = '" . $this->db->escape($data['title']) . "', text = '" . $this->db->escape($data['text']) . "', id = '" . $this->db->escape($data['id']) . "'";
+        $query = "INSERT INTO Article SET title = '" . $this->db->escape($data['title']) . "', text = '" . $this->db->escape($data['text']) . "', id = '" . $this->db->escape($data['id']) . "'";
         $this->db->query($query);
     }
 

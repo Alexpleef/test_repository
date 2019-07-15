@@ -6,15 +6,15 @@ namespace Service;
 use Entity\MysqlConfig;
 use Entity\MysqlDatabase;
 use Entity\User;
-//use InterfaceNamespace\EntityManager;
+use InterfaceNamespace\EntityManager;
 use Entity\BaseEntity;
-//use InterfaceNamespace\EntityManagerInterface;
+use InterfaceNamespace\EntityManagerInterface;
 
 /**
  * Class UserManager
  * @package Service
  */
-class UserManager
+class UserManager extends EntityManager implements EntityManagerInterface
 {
     /**
      * UserManager constructor.

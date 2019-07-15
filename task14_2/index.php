@@ -21,15 +21,17 @@ use Service\UserManager;
 $user_manager = new UserManager();
 $user_test = $user_manager->getById(1);
 print_r($user_test);
-die();
+
 
 $user = new User('test name', 'test surname');
-$user->setId(2);
+$user->setId(3);
 $user_manager->save($user);
+
 echo '<br>', '<hr>';
 $article_manager = new ArticleManager();
-$article_test = $article_manager->getById(4);
+$article_test = $article_manager->getById(2);
 print_r($article_test);
+die('stop');
 $article = new Article('test title', 'test text', $user_test);
-$article->setId(75);
+$article->setId(6);
 $article_manager->save($article);
