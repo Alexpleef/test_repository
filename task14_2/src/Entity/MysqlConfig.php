@@ -18,7 +18,7 @@ class MysqlConfig extends DatabaseConfig
     {
         $this->db_hostname = 'localhost';
         $this->db_username = 'root';
-        $this->db_password = 'Ruffyxzo132435';
+        $this->db_password = '';
         $this->db_name = 'testdb';
     }
 }
